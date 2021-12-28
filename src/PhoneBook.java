@@ -3,6 +3,7 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
@@ -11,6 +12,7 @@ import java.awt.event.ActionListener;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
@@ -21,16 +23,19 @@ public class PhoneBook {
 	private JPanel p_cardPage;
 	private CardLayout card;
 	
+	private JTextField tf1_name;
+	private JTextField tf2_phoneNum;
+	private JTextField tf3_birthday;
+	private JTextField tf4_major;
+	private JTextField tf5_grade;
+	private JTextField tf6_company;
+	
 	private JToggleButton tb1;
 	private JToggleButton tb2;
 	private JToggleButton tb3;
 	
-	private JTextField tf1;
-	private JTextField tf2;
-	private JTextField tf3;
-	private JTextField tf4;
-	private JTextField tf5;
-	private JTextField tf6;
+	private JButton b_input;
+	private JButton b_reset;
 	
 	public PhoneBook() {
 		frame = new JFrame("PhoneBook");
@@ -50,19 +55,51 @@ public class PhoneBook {
 	private void buildGUI() {
 		// TODO Auto-generated method stub
 		frame.add(createTopButtonPanel(), BorderLayout.NORTH);
-		frame.add(createCenterPanel(), BorderLayout.CENTER);
+		frame.add(createCenterPanel()); // CENTER
 		frame.add(createBottomButtonPanel(), BorderLayout.SOUTH);
 	}
 	
 	private void registerEvent() {
 		// 토글 버튼에 대한 이벤트 추가
-					
+		ActionListener handler = new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				// if (e.getSource() == tb1)
+				String src = e.getActionCommand();
+				card.show(p_cardPage, src);
+				
+			}
+		};
+		
+		tb1.addActionListener(handler); //비슷한 기능을 수행하기 때문에 하나의 리스너로 수행
+		tb2.addActionListener(handler);
+		tb3.addActionListener(handler);
+		
+		// 하단 버튼에 대한 이벤트 추가
+		tb1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		tb2.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	}
 
 	private JPanel createTopButtonPanel() {
 		// TODO Auto-generated method stub
 		JPanel panel = new JPanel();
-		panel.setLayout(new FlowLayout());
 		ButtonGroup bg = new ButtonGroup();
 		
 		tb1 = new JToggleButton("일반", true); //선택되어진상태
@@ -74,37 +111,23 @@ public class PhoneBook {
 		panel.add(tb1);
 		panel.add(tb2);
 		panel.add(tb3);
-		
-		ActionListener handler = new ActionListener() {
-		
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-			}
-		};
 				   
 		return panel;
 	}
 	
 	private JPanel createCenterPanel() {
 		// TODO Auto-generated method stub
-		JPanel panel = new JPanel();
-		panel.setLayout(new BorderLayout());
-		
-		//고정 패널
-		JPanel panel2_center = new JPanel();
-		p_cardPage = new JPanel();
-		JPanel panel2_center_txt = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		JPanel panel2_center_txtfld = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		panel2_center_txt.add(new Label("이름"));
-		panel2_center_txt.add(new Label("전화번호"));
-		panel2_center_txt.add(new Label("생년월일"));
+		JPanel panel = new JPanel(new BorderLayout());
 
-		panel2_center.add(panel2_center_txt);
-		panel2_center.add(panel2_center_txtfld);
-				
+		card = new CardLayout();
+		p_cardPage = new JPanel(card);
 		
-		panel.add(createInputPanel(), BorderLayout.CENTER);
+		p_cardPage.add("일반", createNormalInputPanel());
+		p_cardPage.add("대학", createUnivInputPanel());
+		p_cardPage.add("회사", createCompanyInputPanel());
+				
+		// 고정패널
+		panel.add(createBasicInputPanel(), BorderLayout.CENTER);
 		panel.add(p_cardPage, BorderLayout.SOUTH);
 		
 		JPanel p_page = new JPanel();
@@ -113,22 +136,49 @@ public class PhoneBook {
 		return p_page;
 	}
 	
-	private JPanel createInputPanel() {
+	private JPanel createNormalInputPanel() {
 		// TODO Auto-generated method stub
 		JPanel panel = new JPanel();
-		panel.setLayout(new BorderLayout());
 		
-		//고정 패널
-		JPanel panel2_center = new JPanel();
-		JPanel panel2_bottom = new JPanel();
-		JPanel panel2_center_txt = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		JPanel panel2_center_txtfld = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		panel2_center_txt.add(new Label("이름"));
-		panel2_center_txt.add(new Label("전화번호"));
-		panel2_center_txt.add(new Label("생년월일"));
+		return panel;
+	}
+	
+	private JPanel createUnivInputPanel() {
+		// TODO Auto-generated method stub
+		JPanel panel = new JPanel();
+		
+		return panel;
+	}
 
-		panel2_center.add(panel2_center_txt);
-		panel2_center.add(panel2_center_txtfld);
+	private JPanel createCompanyInputPanel() {
+		// TODO Auto-generated method stub
+		JPanel panel = new JPanel();
+		
+		return panel;
+	}
+
+	private JPanel createBasicInputPanel() {
+		// TODO Auto-generated method stub
+		JPanel panel = new JPanel(new GridLayout(0, 1));
+		
+		JPanel p_name = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		JPanel p_phoneNum = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		JPanel p_birthday = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		
+		tf1_name = new JTextField(8);
+		tf2_phoneNum = new JTextField(8);
+		tf3_birthday = new JTextField(8);
+		
+		p_name.add(new JLabel("이         름", JLabel.RIGHT));
+		p_name.add(tf1_name);
+		p_phoneNum.add(new JLabel("전화번호", JLabel.RIGHT));
+		p_phoneNum.add(tf2_phoneNum);
+		p_birthday.add(new JLabel("생년월일", JLabel.RIGHT));
+		p_birthday.add(tf3_birthday);
+		
+		panel.add(p_name);
+		panel.add(p_phoneNum);
+		panel.add(p_birthday);
 		
 		return panel;
 	}
@@ -137,10 +187,12 @@ public class PhoneBook {
 		// TODO Auto-generated method stub
 		JPanel panel3 = new JPanel();
 		
-		JButton jbt1 = new JButton("입력");
-		JButton jbt2 = new JButton("초기화");
-		panel3.add(jbt1);
-		panel3.add(jbt2);
+		b_input = new JButton("입력");
+		b_reset = new JButton("초기화");
+		
+		panel3.add(b_input);
+		panel3.add(b_reset);
+		
 		return panel3;
 	}
 	
