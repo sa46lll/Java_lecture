@@ -30,9 +30,9 @@ public class PhoneBook {
 	private JTextField tf5_grade;
 	private JTextField tf6_company;
 	
-	private JToggleButton tb1;
-	private JToggleButton tb2;
-	private JToggleButton tb3;
+	private JToggleButton tb1_normal;
+	private JToggleButton tb2_univ;
+	private JToggleButton tb3_company;
 	
 	private JButton b_input;
 	private JButton b_reset;
@@ -66,32 +66,41 @@ public class PhoneBook {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				// if (e.getSource() == tb1)
+				// if (e.getSource() == tb1_)
 				String src = e.getActionCommand();
 				card.show(p_cardPage, src);
 				
 			}
 		};
 		
-		tb1.addActionListener(handler); //비슷한 기능을 수행하기 때문에 하나의 리스너로 수행
-		tb2.addActionListener(handler);
-		tb3.addActionListener(handler);
+		tb1_normal.addActionListener(handler); //비슷한 기능을 수행하기 때문에 하나의 리스너로 수행
+		tb2_univ.addActionListener(handler);
+		tb3_company.addActionListener(handler);
 		
 		// 하단 버튼에 대한 이벤트 추가
-		tb1.addActionListener(new ActionListener() {
+		b_input.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
+				System.exit(0);
 			}
 		});
 		
-		tb2.addActionListener(new ActionListener() {
+		b_reset.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				tf1_name.setText("");
+				tf2_phoneNum.setText("");
+				tf3_birthday.setText("");
+				tf4_major.setText("");
+				tf5_grade.setText("");
+				tf6_company.setText("");
+				
+				tb1_normal.setSelected(true);
+				card.show(p_cardPage, "일반");
 				
 			}
 		});
@@ -102,15 +111,15 @@ public class PhoneBook {
 		JPanel panel = new JPanel();
 		ButtonGroup bg = new ButtonGroup();
 		
-		tb1 = new JToggleButton("일반", true); //선택되어진상태
-		tb2 = new JToggleButton("대학");
-		tb3 = new JToggleButton("회사");
-		bg.add(tb1);
-		bg.add(tb2);
-		bg.add(tb3);
-		panel.add(tb1);
-		panel.add(tb2);
-		panel.add(tb3);
+		tb1_normal = new JToggleButton("일반", true); //선택되어진상태
+		tb2_univ = new JToggleButton("대학");
+		tb3_company = new JToggleButton("회사");
+		bg.add(tb1_normal);
+		bg.add(tb2_univ);
+		bg.add(tb3_company);
+		panel.add(tb1_normal);
+		panel.add(tb2_univ);
+		panel.add(tb3_company);
 				   
 		return panel;
 	}
@@ -126,9 +135,8 @@ public class PhoneBook {
 		p_cardPage.add("대학", createUnivInputPanel());
 		p_cardPage.add("회사", createCompanyInputPanel());
 				
-		// 고정패널
-		panel.add(createBasicInputPanel(), BorderLayout.CENTER);
-		panel.add(p_cardPage, BorderLayout.SOUTH);
+		panel.add(createBasicInputPanel(), BorderLayout.CENTER);	// 고정패널
+		panel.add(p_cardPage, BorderLayout.SOUTH); 					// 확장패널
 		
 		JPanel p_page = new JPanel();
 		p_page.add(panel);
@@ -155,8 +163,11 @@ public class PhoneBook {
 		
 		p_major.add(new JLabel("전         공", JLabel.RIGHT));
 		p_major.add(tf4_major);
-		p_major.add(new JLabel("학         년", JLabel.RIGHT));
-		p_major.add(tf5_grade);
+		p_grade.add(new JLabel("학         년", JLabel.RIGHT));
+		p_grade.add(tf5_grade);
+		
+		panel.add(p_major);
+		panel.add(p_grade);
 		
 		return panel;
 	}
@@ -170,7 +181,9 @@ public class PhoneBook {
 		tf6_company = new JTextField(8);
 		
 		p_company.add(new JLabel("회         사", JLabel.RIGHT));
-		p_company.add(tf4_major);
+		p_company.add(tf6_company);
+		
+		panel.add(p_company);
 		
 		return panel;
 	}
