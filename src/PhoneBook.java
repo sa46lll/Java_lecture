@@ -145,14 +145,32 @@ public class PhoneBook {
 	
 	private JPanel createUnivInputPanel() {
 		// TODO Auto-generated method stub
-		JPanel panel = new JPanel();
+		JPanel panel = new JPanel(new GridLayout(0, 1));
+		
+		JPanel p_major = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		JPanel p_grade = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		
+		tf4_major = new JTextField(8);
+		tf5_grade = new JTextField(8);
+		
+		p_major.add(new JLabel("전         공", JLabel.RIGHT));
+		p_major.add(tf4_major);
+		p_major.add(new JLabel("학         년", JLabel.RIGHT));
+		p_major.add(tf5_grade);
 		
 		return panel;
 	}
 
 	private JPanel createCompanyInputPanel() {
 		// TODO Auto-generated method stub
-		JPanel panel = new JPanel();
+		JPanel panel = new JPanel(new GridLayout(0, 1));
+		
+		JPanel p_company = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		
+		tf6_company = new JTextField(8);
+		
+		p_company.add(new JLabel("회         사", JLabel.RIGHT));
+		p_company.add(tf4_major);
 		
 		return panel;
 	}
