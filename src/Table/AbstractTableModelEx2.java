@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-// 3. 사용자 표 모델 이용
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,12 +11,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
-public class AbstractTableModelEx extends JFrame {
+public class AbstractTableModelEx2 extends JFrame {
+private JTable mTable;
 	
-	private JTable mTable;
-	
-	public AbstractTableModelEx() {
-		super("테이블 테스트3");
+	public AbstractTableModelEx2() {
+		super("테이블 테스트3-1");
 
 		buildGUI();
 		
@@ -40,7 +38,7 @@ public class AbstractTableModelEx extends JFrame {
 		JPanel panel = new JPanel(new BorderLayout());
 		
 		// model = 사용자정의 테이블모델 MyTableModel 객체 생성
-		MyTableModel model = new MyTableModel();
+		MyTableModel2 model = new MyTableModel2();
 		
 		// table = model과 연관된 JTable 객체 생성
 		mTable = new JTable(model);
@@ -81,13 +79,12 @@ public class AbstractTableModelEx extends JFrame {
 	};
 	
 	public static void main(String[] args) {
-		new AbstractTableModelEx();
+		new AbstractTableModelEx2();
 	}
 
 }
 
-
-class MyTableModel extends AbstractTableModel {
+class MyTableModel2 extends AbstractTableModel {
 	
 	private Object[][] data = {
 			{ "고주몽", 22, "남" },
@@ -118,17 +115,16 @@ class MyTableModel extends AbstractTableModel {
 		return columnNames[column];
 	}
 
-	@Override
-	public boolean isCellEditable(int rowIndex, int columnIndex) {
-		// TODO Auto-generated method stub
-		return (columnIndex != 0) ? true : false;
-	}
-
-	// 모델값을 변경
-	@Override //
-	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-		// TODO Auto-generated method stub
-		data[rowIndex][columnIndex] = aValue;
-	}
+//	@Override
+//	public boolean isCellEditable(int rowIndex, int columnIndex) {
+//		// TODO Auto-generated method stub
+//		return (columnIndex != 0) ? true : false;
+//	}
+//
+//	// 모델값을 변경
+//	@Override //
+//	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+//		// TODO Auto-generated method stub
+//		data[rowIndex][columnIndex] = aValue;
+//	}
 }
-
