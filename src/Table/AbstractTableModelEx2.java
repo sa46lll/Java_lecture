@@ -87,8 +87,9 @@ private JTable mTable;
 class MyTableModel2 extends AbstractTableModel {
 	
 	private Object[][] data = {
-			{ "고주몽", 22, "남" },
-			{ "소서노", 20, "여" }
+			{ "고주몽", "소서노" },
+			{ 22, 20 },
+			{ "남", "여" }
 	};
 	
 	private String[] columnNames = {"이    름", "나이", "성별"};
@@ -100,12 +101,12 @@ class MyTableModel2 extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		return data.length;
+		return data[0].length;
 	}
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		return data[rowIndex][columnIndex];
+		return data[columnIndex][rowIndex];
 	}
 
 	// 컬럼명 입력
@@ -115,16 +116,16 @@ class MyTableModel2 extends AbstractTableModel {
 		return columnNames[column];
 	}
 
-//	@Override
-//	public boolean isCellEditable(int rowIndex, int columnIndex) {
-//		// TODO Auto-generated method stub
-//		return (columnIndex != 0) ? true : false;
-//	}
-//
-//	// 모델값을 변경
-//	@Override //
-//	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-//		// TODO Auto-generated method stub
-//		data[rowIndex][columnIndex] = aValue;
-//	}
+	@Override
+	public boolean isCellEditable(int rowIndex, int columnIndex) {
+		// TODO Auto-generated method stub
+		return (columnIndex != 0) ? true : false;
+	}
+
+	// 모델값을 변경
+	@Override //
+	public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+		// TODO Auto-generated method stub
+		data[columnIndex][rowIndex] = aValue;
+	}
 }
