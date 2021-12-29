@@ -1,3 +1,4 @@
+package Table;
 
 // 1. 배열 인수(자동 표 모델)
 import java.awt.BorderLayout;
@@ -7,6 +8,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 public class SimpleTableEx extends JFrame {
@@ -40,7 +42,10 @@ public class SimpleTableEx extends JFrame {
 							{ "소서노", 20, "여" } };
 		
 		// mTable = JTable 객체 생성
-		// panel에 mTable 부착
+		mTable = new JTable(data, columnNames);
+		
+		// panel에 mTable 부착 (JScrollPane은 컬럼명을 보여준다.)
+		panel.add(new JScrollPane(mTable));
 		
 		mTable.setRowHeight(30);
 
@@ -53,7 +58,23 @@ public class SimpleTableEx extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 
 			// 표로부터 정보얻어와 출력하기
+			int rowNum = mTable.getRowCount();
+			int colNum = mTable.getColumnCount();
 			
+			for ( int c = 0; c < colNum; c++) {
+				String colName = mTable.getColumnName(c);
+				System.out.print(colName + "\t");
+			}
+			System.out.println();
+			
+			for ( int r = 0; r < rowNum; r++ ) {
+				for ( int c = 0; c < colNum; c++) {
+					Object cell = mTable.getValueAt(r, c);
+					System.out.print(cell + "\t");
+				}
+				System.out.println();
+			}
+			System.out.println();
 		}
 		
 	};
