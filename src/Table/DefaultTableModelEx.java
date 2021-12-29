@@ -1,3 +1,4 @@
+package Table;
 
 // 2. 기본 표 모델 이용
 import java.awt.BorderLayout;
@@ -9,8 +10,10 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 public class DefaultTableModelEx {
 
@@ -43,12 +46,15 @@ public class DefaultTableModelEx {
 		String[] columnNames = { "이름", "나이", "성별" };
 		
 		// model = 기본 테이블 모델 생성
+		DefaultTableModel model = new DefaultTableModel(columnNames, 0);
 		
 		// mTable = model과 연관된 JTable 객체 생성
+		mTable = new JTable(model);
 		
 		mTable.setRowHeight(30);
 
 		// panel에 mTable 부착
+		panel.add(new JScrollPane(mTable));
 		
 		return panel;
 	}
@@ -93,7 +99,14 @@ public class DefaultTableModelEx {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// 텍스트필드에 입력한 값을 배열 arr로 가져오기
+			String arr[] = new String[3];
+			arr[0] = mTvName.getText();
+			arr[1] = mTvAge.getText();
+			arr[2] = mTvGender.getText();
+			
 			// mTable에 설정된 모델 가져오고 arr을 한 행으로 추가하기
+			DefaultTableModel model = (DefaultTableModel) mTable.getModel();
+			model.addRow(arr);
 			
 			mTvName.setText("");
 			mTvAge.setText("");
@@ -107,7 +120,12 @@ public class DefaultTableModelEx {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// 테이블에 현재 선택된 행 번호 가져오기
+			int row = mTable.getSelectedRow();
+			if (row == -1) return;
+			
 			// 모델 객체에서 해당 행 삭제하기
+			DefaultTableModel model = (DefaultTableModel) mTable.getModel();
+			model.removeRow(row);
 		}
 		
 	};
