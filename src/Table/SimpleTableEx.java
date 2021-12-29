@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.TableModel;
 
 public class SimpleTableEx extends JFrame {
 	
@@ -58,6 +59,9 @@ public class SimpleTableEx extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 
 			// 표로부터 정보얻어와 출력하기
+			
+			/*/
+			// sol1)
 			int rowNum = mTable.getRowCount();
 			int colNum = mTable.getColumnCount();
 			
@@ -75,6 +79,29 @@ public class SimpleTableEx extends JFrame {
 				System.out.println();
 			}
 			System.out.println();
+			
+			/*/
+			//sol2) 모델 관점
+			TableModel model = mTable.getModel();
+			
+			int rowNum = model.getRowCount();
+			int colNum = model.getColumnCount();
+			
+			for ( int c = 0; c < colNum; c++) {
+				String colName = model.getColumnName(c);
+				System.out.print(colName + "\t");
+			}
+			System.out.println();
+			
+			for ( int r = 0; r < rowNum; r++ ) {
+				for ( int c = 0; c < colNum; c++) {
+					Object cell = model.getValueAt(r, c);
+					System.out.print(cell + "\t");
+				}
+				System.out.println();
+			}
+			System.out.println();
+			//*/
 		}
 		
 	};
