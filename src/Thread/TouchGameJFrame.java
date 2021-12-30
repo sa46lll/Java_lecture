@@ -60,16 +60,20 @@ public class TouchGameJFrame extends JFrame {
 					mBtn.setText("게임 종료");
 
 					// 캔버스 초기화
+					mCanvas.initTargets();
 
 					// 점수 초기화
 					mLbnScore.setText("0");
 
 					// 주기적으로 타겟 이동
+					mThread = new GameThread();
+					mThread.start();
 				}
 				else {
 					mBtn.setText("게임 시작");
 
 					// 주기적 타겟 이동 중지
+					mThread = null;
 
 					// 캔버스 지우기
 					mCanvas.clear();
@@ -121,6 +125,31 @@ public class TouchGameJFrame extends JFrame {
 		GameCanvas() {
 			mTargets = new Vector<Target>();
 
+			addMouseListener(new MouseAdapter() {
+
+				@Override
+				public void mousePressed(MouseEvent e) {
+					int x = e.getX();
+					int y = e.getY();
+					
+					Iterator<Target> itr = mTargets.iterator();
+					while(itr.hasNext()) {
+						int s = Integer.parseInt(mLbnScore.getText());
+						
+						if (itr.next().isInner(x, y)) {
+							itr.remove();
+							mCanvas.repaint();
+							
+							mLbnScore.setText(String.valueOf(s + 10));
+						}
+						
+						if (mTargets.size() == 0) {
+							mThread = null;
+							mBtn.setText("게임 시작");
+						}
+					}
+				}
+			});
 		}
 
 		void initTargets() {
@@ -135,11 +164,36 @@ public class TouchGameJFrame extends JFrame {
 			mCanvas.repaint();
 		}
 
+		@Override
+		public void paint(Graphics g) {
+			g.setColor(Color.RED);
+			
+			Iterator<Target> itr = mTargets.iterator();
+			Target t;
+			while (itr.hasNext()) {
+				t = itr.next();
+				
+				g.fillRect(t.getX(), t.getY(), Target.TARGET_WIDTH, Target.TARGET_HEIGHT);
+			}
+			
+		}
+
 		void nextState() {
 			int x;
 			int y;
 
 			// 타겟들에 새 좌표값 설정
+			Iterator<Target> itr = mTargets.iterator();
+			Target t;
+			while(itr.hasNext()) {
+				t = itr.next();
+				
+				x = mRandom.nextInt(GAME_PANEL_WIDTH - Target.TARGET_WIDTH);
+				y = mRandom.nextInt(GAME_PANEL_HEIGHT - Target.TARGET_HEIGHT);
+				
+				t.setXY(x,  y);
+			}
+			repaint();
 		}
 
 	}
@@ -193,8 +247,19 @@ public class TouchGameJFrame extends JFrame {
 
 		@Override
 		public void run() {
-			// 주기적으로 캔버스의 타겟 좌표 새로 설정
-			// 캔버스 화면 갱신
+			while (mThread == Thread.currentThread()){
+				// 주기적으로 캔버스의 타겟 좌표 새로 설정
+				mCanvas.nextState();
+				
+				// 캔버스 화면 갱신
+				mCanvas.repaint();
+				
+				// 시간 지연
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {
+				}
+			}
 		}
 
 	}
