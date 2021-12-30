@@ -1,4 +1,4 @@
-
+package Table;
 
 import java.awt.*;
 import javax.swing.*;
@@ -44,12 +44,19 @@ class TableRenderer extends JFrame {
 		table = new JTable(tm);
 		
 		// 테이블 속성 변경
+		table.setRowHeight(30);
+		table.setCellSelectionEnabled(false);
+		table.setRowSelectionAllowed(true);
+		table.setAutoCreateRowSorter(true);
 		
 		tableSelectionListener();
 		
 		panel.add(new JScrollPane(table));
 
 		// 표 정보 표시
+		System.out.println("컬럼 수 : " + tm.getColumnCount());
+		System.out.println("세번째 컬럼 명 : " + tm.getColumnName(2));
+		System.out.println("줄 수 : " + tm.getRowCount());
 
 		return panel;
 	}
@@ -62,6 +69,9 @@ class TableRenderer extends JFrame {
 				new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						// 특정 셀 내용 삽입
+						DefaultTableModel dtm = (DefaultTableModel)table.getModel();
+						
+						dtm.setValueAt("여성", 1, 2);
 					}
 					
 				}
@@ -74,6 +84,13 @@ class TableRenderer extends JFrame {
 				new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						// 표에 새로운 컬럼 추가
+						DefaultTableModel dtm = (DefaultTableModel)table.getModel();
+						
+						String columnName = "비고";
+						String[] columnData = { "가", "나" };
+						dtm.addColumn(columnName, columnData);
+
+						System.out.println("컬럼 클래스명 : " + dtm.getColumnClass(3));
 					}
 				}
 		);
@@ -84,6 +101,10 @@ class TableRenderer extends JFrame {
 				new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						// 표에 새로운 행 추가
+						DefaultTableModel dtm = (DefaultTableModel)table.getModel();
+						
+						String[] rowData = { "홍길동", "20", "남" };
+						dtm.addRow(rowData);
 					}
 				}
 		);
@@ -94,7 +115,12 @@ class TableRenderer extends JFrame {
 				new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						// 표에 새로움 행 삽입
+						DefaultTableModel dtm = (DefaultTableModel)table.getModel();
+						
+						String[] rowData = { "일지매", "18", "남" };
+						dtm.insertRow(1, rowData);
 					}
+					
 				}
 		);
 		panel.add(button);
@@ -104,6 +130,9 @@ class TableRenderer extends JFrame {
 				new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						// 특정 열의 이동
+						DefaultTableModel dtm = (DefaultTableModel)table.getModel();
+						
+						dtm.moveRow(1, 3, 0);
 					}
 				}
 		);
@@ -114,10 +143,17 @@ class TableRenderer extends JFrame {
 				new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						// 2번 컬럼에 대해
+						TableColumnModel tcm = table.getColumnModel();
+						TableColumn tc = tcm.getColumn(2);
 
 						// 셀 너비 설정
+						tc.setPreferredWidth(20);
 
 						// 셀 정렬 방법 설정
+						DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
+						dtcr.setHorizontalAlignment(SwingConstants.CENTER);
+						
+						tc.setCellRenderer(dtcr);
 					}
 				}
 		);
@@ -128,6 +164,16 @@ class TableRenderer extends JFrame {
 				new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						// 코드로 정렬하기 : 나이-이름
+						DefaultTableModel tm = (DefaultTableModel)table.getModel();
+
+						TableRowSorter<DefaultTableModel> sorter;
+						sorter = new TableRowSorter<DefaultTableModel>(tm);
+						table.setRowSorter(sorter);
+
+						java.util.List <RowSorter.SortKey> sortKeys = new java.util.ArrayList<RowSorter.SortKey>();
+						sortKeys.add(new RowSorter.SortKey(1, SortOrder.ASCENDING));
+						sortKeys.add(new RowSorter.SortKey(0, SortOrder.DESCENDING));
+						sorter.setSortKeys(sortKeys); 
 					}
 				}
 		);
@@ -138,6 +184,19 @@ class TableRenderer extends JFrame {
 				new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						// 비고를 콤보박스와 연결
+						// 3번 컬럼에 대해
+						TableColumnModel tcm = table.getColumnModel();
+						TableColumn tc = tcm.getColumn(3);
+
+						// 콤보박스로 표시
+				        JComboBox cb = new JComboBox();
+				        cb.addItem("가");
+				        cb.addItem("나");
+				        cb.addItem("다");
+				        cb.addItem("라");
+
+				        DefaultCellEditor dce = new DefaultCellEditor(cb);
+						tc.setCellEditor(dce);
 					}
 				}
 		);
@@ -156,6 +215,15 @@ class TableRenderer extends JFrame {
 		t_filterText.getDocument().addDocumentListener(
 				new DocumentListener() {
 					// 입력 필터 설정
+					public void changedUpdate(DocumentEvent e) {
+					    newFilter(t_filterText, 0);
+					}
+					public void insertUpdate(DocumentEvent e) {
+						newFilter(t_filterText, 0);
+					}
+					public void removeUpdate(DocumentEvent e) {
+						newFilter(t_filterText, 0);
+					}
 				}
 		);
 		
