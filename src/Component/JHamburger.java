@@ -1,4 +1,6 @@
-﻿import java.awt.*;
+package Component;
+
+import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 

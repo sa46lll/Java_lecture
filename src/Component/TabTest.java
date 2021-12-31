@@ -1,3 +1,5 @@
+package Component;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -8,13 +10,13 @@ public class TabTest extends JFrame {
 	JTabbedPane m_tp = new JTabbedPane();
 
 	public TabTest() {
-		super("ÅÇ Å×½ºÆ®");
+		super("íƒ­ í…ŒìŠ¤íŠ¸");
 
 		JPanel p_tab1 = CreateFirstTab();
 		JPanel p_tab2 = CreateSecondTab();
 		JPanel p_tab3 = CreateThirdTab();
 
-		// m_tp¿¡ p_tab1~3±îÁö ÅÇÀ¸·Î Ãß°¡
+		// m_tpì— p_tab1~3ê¹Œì§€ íƒ­ìœ¼ë¡œ ì¶”ê°€
 
 		add("Center", m_tp);
 
@@ -26,22 +28,22 @@ public class TabTest extends JFrame {
 
 	private JPanel CreateFirstTab() {
 		JPanel panel = new JPanel();
-		panel.add(new JButton("Ã¹¹øÂ°"));
+		panel.add(new JButton("ì²«ë²ˆì§¸"));
 
 		return panel;
 	}
 
 	private JPanel CreateSecondTab() {
 		JPanel panel = new JPanel(new BorderLayout());
-		panel.add(new JButton("µÎ¹øÂ°"));
+		panel.add(new JButton("ë‘ë²ˆì§¸"));
 
 		return panel;
 	}
 
 	private JPanel CreateThirdTab() {
 		JPanel panel = new JPanel(new GridLayout(0,2));
-		panel.add(new JLabel("¼¼¹øÂ°"));
-		panel.add(new JButton("¼¼¹øÂ°"));
+		panel.add(new JLabel("ì„¸ë²ˆì§¸"));
+		panel.add(new JButton("ì„¸ë²ˆì§¸"));
 
 		return panel;
 	}

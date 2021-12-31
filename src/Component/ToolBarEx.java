@@ -1,10 +1,12 @@
+package Component;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class ToolBarEx extends JFrame {
 
 	ToolBarEx() {
-		super("Åø¹Ù ¸¸µé±â ¿¹Á¦");
+		super("íˆ´ë°” ë§Œë“¤ê¸° ì˜ˆì œ");
 
 		createToolBar();
 
@@ -14,9 +16,9 @@ public class ToolBarEx extends JFrame {
 	}
 
 	void createToolBar() {
-		// Åø¹Ù »ı¼º
+		// íˆ´ë°” ìƒì„±
 
-		// Åø¹Ù¿¡ ¸Ş´º·Î »ç¿ëÇÒ ÄÄÆ÷³ÍÆ®¸¦ »ğÀÔ
+		// íˆ´ë°”ì— ë©”ë‰´ë¡œ ì‚¬ìš©í•  ì»´í¬ë„ŒíŠ¸ë¥¼ ì‚½ì…
 		JButton btn = new JButton("New");
 
 		JComboBox combo = new JComboBox();
@@ -24,7 +26,7 @@ public class ToolBarEx extends JFrame {
 		combo.addItem("C");
 		combo.addItem("C++");
 
-		// Åø¹Ù¸¦ ÄÁÅÙÆ®ÆÒÀÇ NORTH¿¡ ºÎÂøÇÑ´Ù.
+		// íˆ´ë°”ë¥¼ ì»¨í…íŠ¸íŒ¬ì˜ NORTHì— ë¶€ì°©í•œë‹¤.
 	}
 
 	public static void main(String [] args) {

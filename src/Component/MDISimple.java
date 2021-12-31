@@ -1,3 +1,5 @@
+package Component;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -29,7 +31,7 @@ public class MDISimple extends JFrame implements ActionListener {
 
 		add(desktop, BorderLayout.CENTER);
 
-		// ¸Ş´º¹Ù ±¸¼º
+		// ë©”ë‰´ë°” êµ¬ì„±
 		JMenuBar menubar = new JMenuBar();
 		setJMenuBar(menubar);
 
@@ -64,13 +66,13 @@ public class MDISimple extends JFrame implements ActionListener {
 		JTextArea t_ta = new JTextArea();
 		JInternalFrame iFrame = new JInternalFrame("" + cnt++, true, true, true, true);
 
-		// iFrame ±¸¼º ¼³Á¤
+		// iFrame êµ¬ì„± ì„¤ì •
 
-		// desktop¿¡ iFrame ºÎÂø
+		// desktopì— iFrame ë¶€ì°©
 
-		// iFrame °¡½ÃÈ­
+		// iFrame ê°€ì‹œí™”
 
-		// iFrame Á¾·á ÀÌº¥Æ® Ã³¸®
+		// iFrame ì¢…ë£Œ ì´ë²¤íŠ¸ ì²˜ë¦¬
 	}
 
 	class InternalFrameEventHandler extends InternalFrameAdapter {

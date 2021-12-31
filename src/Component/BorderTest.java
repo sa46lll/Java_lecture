@@ -1,3 +1,5 @@
+package Component;
+
 
 import java.awt.*;
 
@@ -7,7 +9,7 @@ import javax.swing.border.*;
 public class BorderTest extends JFrame {
 	
 	public BorderTest() {
-		super("º¸´õ Å×½ºÆ®");
+		super("ë³´ë” í…ŒìŠ¤íŠ¸");
 
 		buildGUI();
 		
@@ -19,7 +21,7 @@ public class BorderTest extends JFrame {
 	}
 
 	private void buildGUI() {
-		// frame ±¸¼º
+		// frame êµ¬ì„±
 		setLayout(new GridLayout(0,1));		// (inf,2) : (4,2)
 		
 		add(createLineBorder());
