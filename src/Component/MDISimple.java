@@ -67,12 +67,19 @@ public class MDISimple extends JFrame implements ActionListener {
 		JInternalFrame iFrame = new JInternalFrame("" + cnt++, true, true, true, true);
 
 		// iFrame 구성 설정
-
+		Container cp = iFrame.getContentPane();
+		cp.add(t_ta);
+		
+		iFrame.setBounds((cnt-1)*20, (cnt-1)*20, 300, 200);
+		
 		// desktop에 iFrame 부착
+		desktop.add(iFrame);
 
 		// iFrame 가시화
+		iFrame.setVisible(true);
 
 		// iFrame 종료 이벤트 처리
+		iFrame.addInternalFrameListener(null);
 	}
 
 	class InternalFrameEventHandler extends InternalFrameAdapter {
