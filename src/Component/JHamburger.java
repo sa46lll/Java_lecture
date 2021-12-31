@@ -101,7 +101,11 @@ public class JHamburger extends JFrame implements ActionListener {
 			return value;
 		}
 
-		public void make() {
+		public synchronized void make() throws InterruptedException {
+			
+			while(value == max)
+				wait();
+			
 			++value;
 
 			Thread thisThread = Thread.currentThread();
@@ -110,9 +114,15 @@ public class JHamburger extends JFrame implements ActionListener {
 			t_ta2.append("\n");
 
 			t_ta1.setCaretPosition(t_ta1.getDocument().getLength());
+			
+			notify();
 		}
 
-		public void sell() {
+		public synchronized void sell() throws InterruptedException {
+			
+			while(value == 0)
+				wait();
+			
 			value--;
 
 			Thread thisThread = Thread.currentThread();
@@ -121,6 +131,8 @@ public class JHamburger extends JFrame implements ActionListener {
 			t_ta2.append(thisThread.getName() + ": 소비 [재고="+getValue() + "]\n");
 
 			t_ta2.setCaretPosition(t_ta2.getDocument().getLength());
+			
+			notify();
 		}
 
 	}
