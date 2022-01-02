@@ -1,9 +1,14 @@
 package Component;
 
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.table.*;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 
 public class TabTest extends JFrame {
 
@@ -17,9 +22,13 @@ public class TabTest extends JFrame {
 		JPanel p_tab3 = CreateThirdTab();
 
 		// m_tp에 p_tab1~3까지 탭으로 추가
+		m_tp.addTab("첫번째 탭", p_tab1);
+		m_tp.addTab("첫번째 탭", p_tab2);
+		m_tp.addTab("첫번째 탭", p_tab3);
 
-		add("Center", m_tp);
-
+		add(m_tp, BorderLayout.CENTER); //컴파일 타임에 어디서 오류가 났는지 알려줌.(런타임 전에)
+//		add("Center", m_tp);
+		
 		setBounds(200, 200, 450, 200);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
